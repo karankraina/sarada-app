@@ -1,45 +1,45 @@
-import React from 'react';
-import {
-  Button,
-  View,
-  Text,
-  WebView,
-  StyleSheet,
-  TextInput,
-} from 'react-native';
-
-export default class DetailsScreen extends React.Component {
-  state = {
-    url: 'www.google.com',
-    go: false,
-  };
-  handleUrl = text => {
-    this.setState({ url: text });
-  };
-  render() {
-    const goUrl = this.state.url;
-    const goFlag = this.state.go;
-    let WebViewRef;
-    return (
-      <View style={styles.container}>
-        <WebView
-          ref={WEBVIEW_REF => (WebViewRef = WEBVIEW_REF)}
-          source={{ uri: this.state.url }}
-          renderLoading={this.ActivityIndicatorLoadingView}
-          startInLoadingState={true}
-        />
-        <Button
-          title="Reload Me!"
-          onpress={() => {
-            WebViewRef && WebViewRef.reload();
-          }}
-        />
-      </View>
-    );
-  }
-}
-const styles = StyleSheet.create({
-  container: {
-    height: 700,
-  },
-});
+// import React, { Component } from 'react';
+// import { Ionicons } from '@expo/vector-icons';
+// import {
+//   Container,
+//   Header,
+//   Title,
+//   Content,
+//   Footer,
+//   FooterTab,
+//   Button,
+//   Left,
+//   Right,
+//   Body,
+//   Icon,
+//   Text,
+// } from 'native-base';
+// export default class DetailsScreen extends Component {
+//   render() {
+//     return (
+//       <Container>
+//         <Header>
+//           <Left>
+//             <Button transparent>
+//               <Icon name="menu" />
+//             </Button>
+//           </Left>
+//           <Body>
+//             <Title>Header</Title>
+//           </Body>
+//           <Right />
+//         </Header>
+//         <Content>
+//           <Text>This is Content Section</Text>
+//         </Content>
+//         <Footer>
+//           <FooterTab>
+//             <Button full>
+//               <Text>Footer</Text>
+//             </Button>
+//           </FooterTab>
+//         </Footer>
+//       </Container>
+//     );
+//   }
+// }

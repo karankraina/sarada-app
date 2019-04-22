@@ -1,62 +1,51 @@
-import React, { Component } from 'react';
-import { Image } from 'react-native';
-import { Container, Header, Content, Card, CardItem, Thumbnail, Text, Button, Icon, Left, Body } from 'native-base';
-import { AppLoading } from 'expo';
-
-// import MyCard from '../components/MyCard';
+import * as React from 'react';
+import { Text, View, StyleSheet, Image } from 'react-native';
 
 export default class MyCard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { loading: true };
-  }
-
-  async componentWillMount() {
-    await Expo.Font.loadAsync({
-      Roboto: require("native-base/Fonts/Roboto.ttf"),
-      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf"),
-    });
-    this.setState({ loading: false });
+    this.state = {
+      title: '',
+      subtitle: '',
+    };
   }
   render() {
-    if (this.state.loading) {
-      return (<AppLoading />);
-    }
-    else {
-      return (
-        <Container>
-          
-          <Content>
-            <Card style={{flex: 0}}>
-              <CardItem>
-                <Left>
-                  <Thumbnail source={{uri: 'Image URL'}} />
-                  <Body>
-                    <Text>NativeBase</Text>
-                    <Text note>April 15, 2016</Text>
-                  </Body>
-                </Left>
-              </CardItem>
-              <CardItem>
-                <Body>
-                  <Image source={{uri: 'Image URL'}} style={{height: 200, width: 200, flex: 1}}/>
-                  <Text>
-                    //Your text here
-                  </Text>
-                </Body>
-              </CardItem>
-              <CardItem>
-                <Left>
-                  <Button transparent textStyle={{color: '#87838B'}}>
-                    <Icon name="logo-github" />
-                    <Text>1,926 stars</Text>
-                  </Button>
-                </Left>
-              </CardItem>
-            </Card>
-          </Content>
-        </Container>
-      );
-     }
+    const title = this.props.title;
+    const subtitle = this.props.subtitle;
+    return (
+      <View style={styles.card}>
+        <Image
+          style={styles.image}
+          source={{
+            uri: 'https://www.dike.lib.ia.us/images/sample-1.jpg/image',
+          }}
+        />
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0, 0, 0, 0.5)',
+            alignSelf: 'flex-end',
+            width: '80%'
+          }}>
+          <Text style={{ color: 'white', fontSize: 20, margin: 6 }}>
+            {title}
+          </Text>
+          <Text style={{ color: 'white', margin: 6 }}>{subtitle}</Text>
+        </View>
+      </View>
+    );
   }
 }
+const styles = StyleSheet.create({
+  image: {
+    width: '100%',
+    height: 200,
+    position: 'absolute',
+  },
+  card: {
+    width: '90%',
+    flexDirection: 'row',
+    margin: 10,
+    height: 200,
+  },
+});

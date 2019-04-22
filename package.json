@@ -1,4 +1,9 @@
 {
+  "name": "sarada-app",
+  "version": "0.0.0",
+  "description": "SaradaReactnativeApp",
+  "author": null,
+  "private": true,
   "main": "node_modules/expo/AppEntry.js",
   "scripts": {
     "start": "expo start",
@@ -8,13 +13,12 @@
   },
   "dependencies": {
     "expo": "^32.0.0",
-    "native-base": "^2.12.1",
     "react": "16.5.0",
     "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
-    "react-navigation": "^3.8.1"
-  },
-  "devDependencies": {
-    "babel-preset-expo": "^5.0.0"
-  },
-  "private": true
+    "firebase": "5.9.4",
+    "native-base": "2.8.2",
+    "react-native-easy-grid": "0.2.1",
+    "react-native-paper": "2.2.8",
+    "react-navigation": "3.7.1"
+  }
 }

@@ -21,8 +21,9 @@ import Translator from '../screens/Translator';
 // import ImageGallery from '../screens/imageGallery';
 // import About from '../screens/about';
 import { Ionicons } from '@expo/vector-icons';
+import MyWebView from '../screens/mywebview'
 
-export default class HomeScreen extends React.Component {
+export default class About extends React.Component {
   constructor(props) {
     super(props);
     this.state = { loading: true };
@@ -61,28 +62,12 @@ export default class HomeScreen extends React.Component {
           </Header>
           <Tabs locked={true} tabBarUnderlineStyle={{ backgroundColor: '#fff' }}>
             <Tab
-              heading="Learn Sarada"
+              heading="About the Team"
               activeTextStyle={{ color: '#fff', fontWeight: 'bold' }}
               textStyle={{ color: '#fff' }}
               tabStyle={{ backgroundColor: '#e65100' }}
               activeTabStyle={{ backgroundColor: '#e65100' }}>
-              <LearnSarada />
-            </Tab>
-            <Tab
-              heading="Gallery"
-              activeTextStyle={{ color: '#fff', fontWeight: 'bold' }}
-              textStyle={{ color: '#fff' }}
-              tabStyle={{ backgroundColor: '#e65100' }}
-              activeTabStyle={{ backgroundColor: '#e65100' }}>
-              <Gallery />
-            </Tab>
-            <Tab
-              heading="Translator"
-              activeTextStyle={{ color: '#fff', fontWeight: 'bold' }}
-              textStyle={{ color: '#fff' }}
-              tabStyle={{ backgroundColor: '#e65100' }}
-              activeTabStyle={{ backgroundColor: '#e65100' }}>
-              <Translator />
+              <MyWebView source={require('../assets/about.html')} />
             </Tab>
           </Tabs>
         </Container>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+    
+</head>
+
+<body>
+    <div class="body"></div>
+    <script>
+        $(() => {
+            var client = contentful.createClient({
+                space: "hmdpqvmg445m",
+                accessToken: "e4cb8c0f3b9d5370ace3361bedfe93a3d72d714f681811fb3973b03b8c86baba"
+            });
+            client
+                .getEntry("za8aZeiVjRMYrUH1P4jKm")
+                .then(entry => {
+				console.log(entry.fields.aboutFull)
+                    var data = (entry.fields.aboutFull !== undefined || entry.fields.aboutFull !== '') ? entry.fields.aboutFull : 'Core Sarada Team'
+					console.log(data)
+                    $('.body').html(data)
+                })
+                .catch(err => console.log(err));
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/contentful@latest/dist/contentful.browser.min.js"></script>
+    <style>
+        @font-face {
+            font-family: "sarada_noto";
+            src: url("sarada_noto.ttf");
+        }
+
+        @font-face {
+            font-family: "sarada_karan";
+            src: url("sarada_karan.ttf");
+        }
+
+        div.gallery {
+            border: 1px solid #eee;
+        }
+
+        html,
+        body {
+            background: #fff;
+        }
+
+        div.gallery:hover {
+            border: 1px solid #eee;
+        }
+
+        div.gallery img {
+            width: 100%;
+            height: auto;
+            border: 2px solid #bf360c;
+        }
+
+        div.desc {
+            padding: 15px;
+            text-align: center;
+            color: #e65100;
+        }
+
+        div.desc h2 {
+            margin: 0.3em;
+            text-align: center;
+            color: #e65100;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        .sarada_noto {
+            font-family: sarada_noto;
+            color: #e65100;
+        }
+
+        .sarada_karan {
+            font-family: sarada_karan;
+            color: #e65100;
+        }
+
+        .responsive {
+            padding: 0 6px;
+            float: left;
+            width: 24.99999%;
+        }
+
+        @media only screen and (max-width: 700px) {
+            .responsive {
+                width: 49.99999%;
+                margin: 6px 0;
+            }
+        }
+
+        @media only screen and (max-width: 500px) {
+            .responsive {
+                width: 100%;
+            }
+        }
+
+        .clearfix:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+		.error-refresh{
+		    align-items: center;
+    color: #fff;
+    justify-content: center;
+    display: flex;
+    border: 1px solid #e65100;
+    background: #e65100;
+    height: 40px;
+    font-size: 2em;
+    position: sticky;
+	top: 0
+		}
+    </style>
+</head>
+
+<body>
+<div class="error-refresh">Refresh</div>
+
+    <h2 style="color: #e65100; font-family: sarada_karan; text-align: center; margin-top: 30px;"><span id="title"
+            style="font-size: 2em"></span> </h2>
+    <h4 style="color: #e65100; text-align: center; font-size: 1em" id="description"></h4>
+    <div class="clearfix"></div>
+    <div class="clearfix"></div>
+    <div class="dynamic_gallery">
+        <div class="responsive">
+
+        </div>
+    </div>
+
+
+    <div class="clearfix"></div>
+    <script>
+        $(() => {
+            console.log('working')
+            var client = contentful.createClient({
+                space: "hmdpqvmg445m",
+                accessToken: "e4cb8c0f3b9d5370ace3361bedfe93a3d72d714f681811fb3973b03b8c86baba"
+            });
+            // This API call will request an entry with the specified ID from the space defined at the top, using a space-specific access token.
+            client
+                .getEntry("6jD09uTfhtzKC4WQH0tCSu")
+                .then(entry => {
+                    var data = entry.fields.image;
+                    console.log(data)
+                    data.forEach((element, index) => {
+                        console.log(element)
+                        var curr_title = element.fields.title !== undefined ? element.fields.title : 'Core Sarada Team';
+                        var curr_desc = element.fields.description !== undefined ? element.fields.description : 'Core Sarada Team';
+                        var curr_url = `https:${element.fields.file.url}`;
+                        console.log(`${curr_title} :: ${curr_desc} :: ${curr_url}`)
+                        $('.dynamic_gallery').prepend(`<div class="responsive">
+        <div class="gallery">
+                <h2 class="sarada_noto">Post No #${index + 1}</h2>
+            <a href="#">
+                <img src="${curr_url}" alt="${curr_title}" width="600" height="400">
+            </a>
+            <div class="desc"><h2 class="sarada_noto">${curr_title}</h2>${curr_desc}</div>
+        </div>
+    </div>`)
+
+                    });
+                })
+                .catch(err => console.log(err));
+            client
+                .getEntry("za8aZeiVjRMYrUH1P4jKm")
+                .then(entry => {
+                    var my_title = (entry.fields.title !== undefined || entry.fields.title !== '') ? entry.fields.title : 'नमस्कार'
+                    var my_desc = (entry.fields.description !== undefined || entry.fields.description !== '') ? entry.fields.description : 'नमस्ते शारदे देवी काश्मीरापुरवासिनि त्वामहं प्रार्थये नित्यं विद्यादानं च देहि मे ॥'
+                    $('#title').html(my_title)
+                    $('#description').html(my_desc)
+                })
+                .catch(err => console.log(err));
+        });
+		
+		$('.error-refresh').click(() => {
+		location.reload();
+		})
+    </script>
+</body>
+
+</html>

@@ -1,27 +1,44 @@
 import React from 'react';
-import { createStackNavigator, createAppContainer } from 'react-navigation'; // Version can be specified in package.json
-
+import { Text, View, Title } from 'react-native';
+import {
+  createStackNavigator,
+  createAppContainer,
+  createBottomTabNavigator,
+} from 'react-navigation'; //
+import { Ionicons } from '@expo/vector-icons'; // 6.2.2
 import HomeScreen from '../screens/HomeScreen';
-import DetailsScreen from '../screens/DetailsScreen';
-import List from '../screens/List';
-import Web from '../screens/webview';
+// import DetailsScreen from '../screens/DetailsScreen';
+import About from '../screens/About';
 
-const RootStack = createStackNavigator(
-  {
-    Home: HomeScreen,
-    Details: DetailsScreen,
-    List: List,
-    Web: Web,
-  },
-  {
-    initialRouteName: 'Home',
+const getTabBarIcon = (navigation, focused, tintColor) => {
+  const { routeName } = navigation.state;
+  let iconName;
+  if (routeName === 'Home') {
+    iconName = `md-home`;
+  } else if (routeName === 'About Us') {
+    iconName = `md-information-circle${focused ? '' : '-outline'}`;
   }
+  // You can return any component that you like here!
+
+  return <Ionicons name={iconName} size={25} color={tintColor} />;
+  // return <Ionicons name="md-home" size={32} color="green" />;
+};
+
+export default createAppContainer(
+  createBottomTabNavigator(
+    {
+      Home: { screen: HomeScreen },
+      'About Us': { screen: About },
+    },
+    {
+      defaultNavigationOptions: ({ navigation }) => ({
+        tabBarIcon: ({ focused, tintColor }) =>
+          getTabBarIcon(navigation, focused, tintColor),
+      }),
+      tabBarOptions: {
+        activeTintColor: '#e65100',
+        inactiveTintColor: 'gray',
+      },
+    }
+  )
 );
-
-const RoutesContainer = createAppContainer(RootStack);
-
-export default class Routes extends React.Component {
-  render() {
-    return <RoutesContainer />;
-  }
-}
